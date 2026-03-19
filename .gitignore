@@ -26,8 +26,8 @@ venv/
 .env.local
 .env.*.local
 
-# Embeddings cache
-.embeddings_cache.json
+# Embeddings cache - NOT ignored so Railway deploys with pre-computed embeddings
+# .embeddings_cache.json
 
 # IDE
 .vscode/

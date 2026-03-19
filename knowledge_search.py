@@ -101,7 +101,7 @@ class KnowledgeBase:
                     self.embeddings = np.array(cache["embeddings"])
                     print(f"Loaded {len(self.embeddings)} cached embeddings.")
                     return
-            except (json.JSONDecodeError, KeyError):
+            except (json.JSONDecodeError, KeyError, OSError):
                 pass
 
         # Compute new embeddings
@@ -110,14 +110,18 @@ class KnowledgeBase:
         raw_embeddings = get_embeddings(texts)
         self.embeddings = np.array(raw_embeddings)
 
-        # Save to cache
-        cache = {
-            "hash": content_hash,
-            "embeddings": [e.tolist() for e in self.embeddings]
-        }
-        with open(config.EMBEDDINGS_CACHE_FILE, "w") as f:
-            json.dump(cache, f)
-        print(f"Computed and cached {len(self.embeddings)} embeddings.")
+        # Save to cache (may fail on read-only filesystems like Railway)
+        try:
+            cache = {
+                "hash": content_hash,
+                "embeddings": [e.tolist() for e in self.embeddings]
+            }
+            with open(config.EMBEDDINGS_CACHE_FILE, "w") as f:
+                json.dump(cache, f)
+            print(f"Computed and cached {len(self.embeddings)} embeddings.")
+        except (OSError, IOError) as e:
+            print(f"Could not write cache (read-only filesystem?): {e}")
+            print(f"Computed {len(self.embeddings)} embeddings (not cached).")
 
     def search(self, query: str, top_k: int = config.TOP_K_CHUNKS) -> list[dict]:
         """Find the top-k most relevant chunks for a given query."""
