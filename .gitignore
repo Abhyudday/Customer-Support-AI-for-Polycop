@@ -26,6 +26,9 @@ venv/
 .env.local
 .env.*.local
 
+# Embeddings cache
+.embeddings_cache.json
+
 # IDE
 .vscode/
 .idea/
