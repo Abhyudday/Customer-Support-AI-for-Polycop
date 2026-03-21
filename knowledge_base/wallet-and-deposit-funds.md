@@ -19,6 +19,7 @@
 * PolyCop directly integrates the official Polymarket Cross-Chain Bridge. For detailed instructions or troubleshooting regarding deposits, please refer to their official resources:
   * Step-by-Step Tutorial: [Polymarket Transfer Guide & FAQs](https://intercom.help/funxyz/en/articles/10003876-transfer-crypto-guide-faqs#h_2834613ca7)
   * Customer Support: If your deposit has not arrived, you can contact their team directly via the "Let's Talk" button at [fun.xyz](https://fun.xyz/).
+  * If you mistakenly sent POL tokens to Trading address or sent them via the Other network, you can follow the steps outlined in this documentation to retrieve your funds: <https://recovery.polymarket.com/> (Please make sure to select the blockchain network first before connecting your wallet.)
 
 ### **3.** What is the min amount of funds I need to deposit?
 
@@ -35,9 +36,9 @@
 We use Polymarket's official Wallet system for **gas-free** trading:
 
 * In Polymarket, When you connect your wallet, Polymarket will based on your wallet generate a trading sub-address and a deposit sub-address. you will have a total of three different types of addresses.
-  1. Trading Address
+  1. Trading Address (PolyMarket Profile Address)
 
-     This address is generated specifically for gasless trading. You do not need to pay gas fees when placing trades.
+     This address is generated specifically for gasless trading. You do not need to pay gas fees when placing trades. If you mistakenly sent POL tokens to this address or sent them via the Other network, you can follow the steps outlined in this documentation to retrieve your funds: <https://recovery.polymarket.com/> (Please make sure to select the blockchain network first before connecting your wallet.)
   2. Deposit Address
 
      This address is used for cross-chain deposits. You can transfer funds to it from different blockchains.
@@ -50,7 +51,7 @@ We use Polymarket's official Wallet system for **gas-free** trading:
   3. Go to your Polymarket personal profile page and click Copy Address to view your trading address
   4. Click the Deposit button to view your deposit address.
 
-You can send USDC.E (Only USDC.E, Only Polygon Network) to the trading address on Polygon Network (No fee) , and send USDC or USDT to the deposit address(Low Cross-chain bridge fee / Very Low Swap fee).
+You can send USDC.E/USDC/USDT (Only USDC.E/USDC/USDT, Only Polygon Network) to the trading address on Polygon Network (No fee) , and send USDC or USDT to the deposit address(Low Cross-chain bridge fee / Very Low Swap fee).
 
 ### 6. What can I do after depositing funds?
 
