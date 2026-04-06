@@ -101,11 +101,11 @@ Strategy Logic: Extremely high win rate. In the last 2 minutes, if BTC still mai
 
 Strategy Logic: Capture trends brought by sudden news or large spot market dumps at the opening. Snatch cheap shares before prediction market market makers adjust their prices.
 
-* Time Range: `00:00, 03:00`
-* UP Price: `0.01, 0.60`
-* BTC Change: `30, 9999`
-* Buy Params: `🟢 Buy UP` | Limit `0.55`
-* TP/SL: TP `0.75` / SL `-25%` (In and out quickly, refuse to linger)
+* Time Range: `00:30, 01:00`
+* UP Price: `0.01, 0.89`
+* BTC Change: 5`0, 9999`
+* Buy Params: `🟢 Buy UP` | Market Buy
+* TP/SL: NO
 
 #### 💣 Template 3: The Flash Crash Rebound
 
@@ -116,3 +116,31 @@ Strategy Logic: Extreme market conditions hit mid-round, and panic selling drive
 * BTC Change: `-200, -10`
 * Buy Params: `🟢 Buy UP` | Amount `$5` (Lottery play, control position size strictly)
 * TP/SL: TP `0.45` / SL None (Run if it doubles, treat a wipeout like a losing lottery ticket)
+
+It's just a data point:
+
+> We backtested an Opening Range Breakout strategy adapted for Polymarket's BTC 5-minute markets. Across 4,389 trades, here's what we found.
+>
+> The strategy: When BTC moves past the price targets and the price is below the accuracy %, buy.
+>
+> \- BTC moves $10 in first minute: 57% accuracy that side wins &#x20;
+>
+> \- BTC moves $10–25: 68% accuracy &#x20;
+>
+> \- BTC moves $50–100: 76% accuracy &#x20;
+>
+> \- BTC moves $100+: 99% accuracy &#x20;
+>
+> The first 60 seconds of BTC price action predicts the 5-minute resolution quite accurately.
+>
+> If BTC moves up from the strike in the first minute → buy UP &#x20;
+>
+> If BTC moves down → buy DOWN&#x20;
+>
+> Hold to resolution.
+>
+> That's it. No indicators. No ML. Just momentum.
+>
+> When the market shows its hand early, it usually plays through.
+>
+> If you want to backtest your own strategies, PolyBackTest has subsecond historical data going back a month. --- Poly backtest

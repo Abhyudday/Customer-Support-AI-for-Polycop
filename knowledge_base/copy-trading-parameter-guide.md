@@ -99,3 +99,13 @@ Determines how much you invest per trade relative to the target.
 * Market Order: Allows slippage configuration.
 * Limit Order: Allows Price Offset and Expiration configuration.
 * 🚨 \[!CAUTION] TP/SL Compatibility: If you switch Sell mode to Limit Order, TP/SL will no longer function. TP/SL is only compatible with Market Orders because Polymarket does not allow two concurrent limit orders on the same position.
+
+#### 18. Max 5/15min Market start Time
+
+* What it is: The "Sniper" or early-entry mode.
+* What it does: If you set this to `60s`, your bot will **ONLY** copy trades made within the **first 60 seconds** after the market opens. Any trades made by the target wallet after the first 60 seconds will be ignored.
+
+#### 19. Max 5/15min Market end Time
+
+* What it is: The "Last-Minute" or late-entry mode.
+* What it does: If you set this to `60s`, your bot will **ONLY** copy trades made when there are **less than 60 seconds left** before the market closes. Any trades made earlier in the market will be ignored.
