@@ -1,4 +1,5 @@
 import os
+import re
 import json
 import hashlib
 import numpy as np
@@ -15,22 +16,63 @@ def count_tokens(text: str) -> int:
     return len(tokenizer.encode(text))
 
 
-def chunk_text(text: str, source: str, chunk_size: int = config.CHUNK_SIZE, overlap: int = config.CHUNK_OVERLAP) -> list[dict]:
-    """Split text into overlapping chunks based on token count."""
+def _split_by_tokens(text: str, chunk_size: int, overlap: int) -> list[str]:
+    """Split a block of text into overlapping token-bounded pieces."""
     tokens = tokenizer.encode(text)
-    chunks = []
+    pieces = []
     start = 0
-
+    step = max(1, chunk_size - overlap)
     while start < len(tokens):
-        end = start + chunk_size
-        chunk_tokens = tokens[start:end]
-        chunk_text = tokenizer.decode(chunk_tokens)
-        chunks.append({
-            "text": chunk_text.strip(),
-            "source": source,
-            "token_count": len(chunk_tokens)
-        })
-        start += chunk_size - overlap
+        chunk_tokens = tokens[start:start + chunk_size]
+        pieces.append(tokenizer.decode(chunk_tokens).strip())
+        start += step
+    return pieces
+
+
+def chunk_text(text: str, source: str, chunk_size: int = config.CHUNK_SIZE, overlap: int = config.CHUNK_OVERLAP) -> list[dict]:
+    """Split markdown into semantically coherent chunks.
+
+    Splits on markdown headers so each chunk belongs to one section, then
+    further splits long sections by token count. The active heading is
+    prepended to every chunk so retrieval has topical context.
+    """
+    lines = text.splitlines()
+    sections: list[tuple[str, list[str]]] = []
+    current_heading = ""
+    current_body: list[str] = []
+
+    for line in lines:
+        if re.match(r"^#{1,6}\s+", line):
+            if current_body or current_heading:
+                sections.append((current_heading, current_body))
+            current_heading = line.lstrip("#").strip()
+            current_body = []
+        else:
+            current_body.append(line)
+    if current_body or current_heading:
+        sections.append((current_heading, current_body))
+
+    chunks = []
+    for heading, body_lines in sections:
+        body = "\n".join(body_lines).strip()
+        if not body and not heading:
+            continue
+        prefix = f"{heading}\n" if heading else ""
+        section_text = f"{prefix}{body}".strip()
+
+        if count_tokens(section_text) <= chunk_size:
+            pieces = [section_text]
+        else:
+            pieces = [f"{prefix}{p}".strip() for p in _split_by_tokens(body, chunk_size, overlap)]
+
+        for piece in pieces:
+            if not piece.strip():
+                continue
+            chunks.append({
+                "text": piece,
+                "source": source,
+                "token_count": count_tokens(piece)
+            })
 
     return chunks
 
@@ -139,6 +181,8 @@ class KnowledgeBase:
 
         results = []
         for idx, score in similarities[:top_k]:
+            if score < config.MIN_RELEVANCE_SCORE:
+                break
             results.append({
                 "text": self.chunks[idx]["text"],
                 "source": self.chunks[idx]["source"],

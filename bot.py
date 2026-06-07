@@ -18,6 +18,17 @@ logger = logging.getLogger(__name__)
 openai_client = OpenAI(api_key=config.OPENAI_API_KEY)
 kb = KnowledgeBase()
 
+# Per-chat conversation history: {chat_id: [{"role": ..., "content": ...}, ...]}
+conversation_history: dict[int, list[dict]] = {}
+
+
+def build_retrieval_query(chat_id: int, user_query: str) -> str:
+    """Combine recent user turns with the current query for better retrieval of follow-ups."""
+    history = conversation_history.get(chat_id, [])
+    recent_user_msgs = [m["content"] for m in history if m["role"] == "user"][-2:]
+    parts = recent_user_msgs + [user_query]
+    return " ".join(p for p in parts if p).strip()
+
 
 async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """Handle /start command."""
@@ -72,10 +83,14 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await file.download_to_memory(buf)
         image_base64 = base64.b64encode(buf.getvalue()).decode("utf-8")
 
-    # Search knowledge base for relevant chunks (using text query)
+    chat_id = update.message.chat_id
+
+    # Search knowledge base using a history-aware query so follow-ups retrieve well
     results = []
     if user_query:
-        results = kb.search(user_query)
+        retrieval_query = build_retrieval_query(chat_id, user_query)
+        results = kb.search(retrieval_query)
+        logger.info(f"Retrieved {len(results)} chunks (top score={results[0]['score'] if results else 'n/a'})")
 
     # Build context from retrieved chunks
     context_text = ""
@@ -103,8 +118,10 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         user_content = text_payload
         model = config.CHAT_MODEL
 
+    history = conversation_history.get(chat_id, [])
     messages = [
         {"role": "system", "content": config.SYSTEM_PROMPT},
+        *history,
         {"role": "user", "content": user_content}
     ]
 
@@ -117,6 +134,13 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         )
         reply = response.choices[0].message.content
         logger.info(f"Used model: {model}")
+
+        # Persist this turn (store plain text, not image payloads or context)
+        history.append({"role": "user", "content": user_query or "[image]"})
+        history.append({"role": "assistant", "content": reply})
+        # Keep only the most recent N turns (each turn = user + assistant)
+        max_msgs = config.MAX_HISTORY_TURNS * 2
+        conversation_history[chat_id] = history[-max_msgs:]
     except Exception as e:
         logger.error(f"OpenAI API error: {e}")
         reply = (
