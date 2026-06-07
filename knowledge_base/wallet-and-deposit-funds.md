@@ -57,8 +57,8 @@ You can send USDC.E/USDC/USDT (Only USDC.E/USDC/USDT, Only Polygon Network) to t
 
 After depositing funds, you can:
 
-1. [**Create copy trades**](https://polycop.gitbook.io/polycop-docs/copy-trading/how-to-copy) – follow target addresses and auto copy their all trades.
-2. [**Place your own trades**](https://polycop.gitbook.io/polycop-docs/manual-trading/how-to-start-manual-trading) – use your trading or limit orders directly.
+1. [**Create copy trades**](/polycop-docs/copy-trading/how-to-copy.md) – follow target addresses and auto copy their all trades.
+2. [**Place your own trades**](/polycop-docs/manual-trading/how-to-start-manual-trading.md) – use your trading or limit orders directly.
 3. **Monitor your positions** – track PnL, open trades, and account balance.
 4. **Adjust copy settings** – change percentages, max spend, or risk limits.
 5. **Withdraw funds** – anytime, to your deposit or personal wallet address.
@@ -77,7 +77,7 @@ PolyCop creates a dedicated high-speed wallet for your copy trading. To withdraw
 
    * *Note: Do not confuse this with your Seed Phrase. Select "Private Key" as the type.*
 
-   <figure><img src="https://1959142348-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FdDRdNQwMVGJeqH9yLJQL%2Fuploads%2FLwHeBC37WgIENC8VmPuO%2Fd183d688fdee60f2200a3ae36fe3a39a.png?alt=media&#x26;token=3df7a509-9f01-4ea0-b643-fff7374b3eda" alt=""><figcaption></figcaption></figure>
+   <figure><img src="/files/aaBbzsL5SQVWdzWJO0v5" alt=""><figcaption></figcaption></figure>
 
 **Step 2: Connect to Polymarket** Now that your wallet is in MetaMask, you can use it to access Polymarket directly:
 
@@ -86,4 +86,4 @@ PolyCop creates a dedicated high-speed wallet for your copy trading. To withdraw
 3. Select **MetaMask** and choose the account you just imported (e.g., "Account 2").
 4. **Done!** You can now see your copy trading positions, trade history, and deposit/withdraw funds directly on the official site.
 
-<figure><img src="https://1959142348-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FdDRdNQwMVGJeqH9yLJQL%2Fuploads%2FDKDZi05vR7xbNkeXAONZ%2Fb60506f5eb2c1e7c646f4da0def3a1ae.png?alt=media&#x26;token=ed43cef8-089b-4e70-9925-7b873abe98c3" alt=""><figcaption></figcaption></figure>
+<figure><img src="/files/19GINjvbJTCZ4d4yMyso" alt=""><figcaption></figcaption></figure>

@@ -60,7 +60,7 @@ You can find **smart money wallets** through the following methods:
    * <https://polymarketanalytics.com/traders>
    * <https://app.future.fun/scouter>
 
-To learn more, please check "[Discover Wallets](https://polycop.gitbook.io/polycop-docs/copy-trading/discover-wallets)"
+To learn more, please check "[Discover Wallets](/polycop-docs/copy-trading/discover-wallets.md)"
 
 ### **4. What kind of smart money is worth copying?**
 

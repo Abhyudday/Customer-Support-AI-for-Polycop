@@ -6,7 +6,7 @@ Once the link is recognized, the bot will display the **Market Dashboard**:&#x20
 * **Prices:** Current prices for "Yes" and "No".
 * **Stats:** 24h Volume and Liquidity.
 
-<figure><img src="https://1959142348-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FdDRdNQwMVGJeqH9yLJQL%2Fuploads%2FnAdy9TpMNOZlkfDsnNJ7%2Fimage.png?alt=media&#x26;token=584d8de7-b1d9-4dcf-a8ac-43dc4b06d0bd" alt=""><figcaption></figcaption></figure>
+<figure><img src="/files/HT4907RIcbBk5xfrA9AW" alt=""><figcaption></figcaption></figure>
 
 #### Step 1: Select Outcome
 
